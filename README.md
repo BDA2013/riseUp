@@ -1,6 +1,6 @@
 # riseUp
 
-## Our RiseUp App will allow user to enter a city name and display the sunset, sunrise, and day length.
+## Our RiseUp App will allow user to enter a location and display the sunset, sunrise, and day length.
 
 ### RiseUp will feature two API's:
 
