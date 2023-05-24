@@ -1,5 +1,5 @@
 var formButton = document.getElementById('submit');
-var latLonUrl = 'https://api.geoapify.com/v1/geocode/search?REQUEST_PARAMS'; //Google
+
 var sunriseUrl = 'https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=today'; //Sunrise API
 
 var locationLon;
@@ -13,20 +13,17 @@ function gatherLatLon(city, state) {
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
+        //console.log(data);
         locationLon = data.results[0].lon;
         locationLat = data.results[0].lat;
-        loggingInfo(locationLat, locationLon);
-        
+        loggingInfo(locationLat, locationLon);   
   });
 };
 
 function loggingInfo(lat, long) {
     console.log(lat);
     console.log(long);
-
 }
-
 
 
 formButton.addEventListener("click", function() {
@@ -34,6 +31,5 @@ formButton.addEventListener("click", function() {
    var stateInput = document.getElementById("stateInput").value;
     
     gatherLatLon(cityInput, stateInput);
-
     //loggingInfo(locationLat, locationLon);
 });
