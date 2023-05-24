@@ -18,17 +18,22 @@
         <form>
             <div class="form-group-1">
                 <label form="exampleInputEmail1">Geolocation</label>
-                <input type="email" class="form-control" id="cityInput" aria-describedby="emailHelp"
+                <input type="text" class="form-control" id="cityInput" aria-describedby="help"
                     placeholder="Enter City">
-                <small id="emailHelp" class="form-text text-muted">Please Enter your City.Ex: Albany </small>
+                    
+                <small id="help" class="form-text text-muted">Please Enter your City. Ex: Albany </small>
+                
             </div>
         </form>
         <form>
             <div class="form-group-2">
                 
-                <input type="email" class="form-control" id="stateInput" aria-describedby="emailHelp"
+                <input type="text" class="form-control" id="stateInput" aria-describedby="help"
                     placeholder="Enter State">
-                <small id="emailHelp" class="form-text text-muted">Please Enter your State.Ex: NY </small>
+                <small id="help" class="form-text text-muted">Please Enter your State. Ex: NY </small>
+                <div class="input-group-append">
+                    <button id="submit" class="btn btn-outline-secondary" type="button">Submit</button>
+                  </div>
             </div>
         </form>
     </section>
