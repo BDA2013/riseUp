@@ -31,5 +31,4 @@ formButton.addEventListener("click", function() {
    var stateInput = document.getElementById("stateInput").value;
     
     gatherLatLon(cityInput, stateInput);
-    //loggingInfo(locationLat, locationLon);
 });
