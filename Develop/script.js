@@ -122,3 +122,10 @@ formButton.addEventListener("click", function() {
     //Once the event occured it'll intiate the function(s) below
     gatherLocationInput()
 });
+
+//It'll listen for the Enter key as an alternative to initiate
+locationInput.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+      gatherLocationInput();
+    }
+});
