@@ -1,15 +1,10 @@
-//Value(s)
+//Document Values
 var formButton = document.getElementById('submit');
 
-var sunriseUrl = 'https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=today'; //Sunrise API
 
-var locationLon;
-var locationLat;
-var sunset;
-var sunrise;
-
-
-//Note: Debug this later to fix the accuracy of the inputed City and State
+/* Notes: Debug this later to fix the accuracy of the inputed City and State. 
+   Delete the '//' by the Console.log if you want to check out what's going on. */
+   
 function gatherLatLon(city, state) {
     //It'll contact the URL below
     fetch(`https://api.geoapify.com/v1/geocode/search?city=${city}&state=${state}&format=json&apiKey=50289ffe2e1e48c89c814826023cb2c0`)
@@ -20,8 +15,8 @@ function gatherLatLon(city, state) {
     //Afterwards, it'll be able to use any data to be used
     .then(function (data) {
         //console.log(data);
-        locationLon = data.results[0].lon;
-        locationLat = data.results[0].lat;
+        var locationLon = data.results[0].lon;
+        var locationLat = data.results[0].lat;
         //the two data will be pushed into the function below 
         loggingInfo(locationLat, locationLon);
         setLatLon(locationLat, locationLon);
@@ -37,38 +32,57 @@ function setLatLon(lat, lon) {
     })
     //Afterwards, it'll be able to use any data to be used
     .then(function (data) {
-        console.log(data);
-        sunsetArray = data.results.sunset.split(':');
-        //console.log(sunsetArray);
-        var convertedSunsetHour = subtract4Hours(parseInt(sunsetArray[0]))
-        sunsetArray[0] = convertedSunsetHour;
-        console.log(sunsetArray);
-        sunset = sunsetArray.join(':');
+        //console.log(data);
+        //It'll store data while being splited by ':'
+        var sunriseArray = data.results.sunrise.split(':');
 
-        sunrise = data.results.sunrise;
-        console.log(sunrise)
-        sunriseArray = data.results.sunrise.split(':');
-        //console.log(sunriseArray);
-        var convertedSunriseHour = subtract4Hours(parseInt(sunriseArray[0]))
+        //The value below will deduct 4 hours for accurate time
+        var convertedSunriseHour = subtract4Hours(parseInt(sunriseArray[0]));
+
+        //It'll input the value back in the Array
         sunriseArray[0] = convertedSunriseHour;
-        //console.log(sunriseArray);
-        sunrise = sunriseArray.join(':');
+        //The Final Value
+        var sunrise = sunriseArray.join(':');
+
+        //It'll store data while being splited by ':'
+        var sunsetArray = data.results.sunset.split(':');
+        //Below will split the last array of sunsetArray
+        var lastArray = sunsetArray[2].split(' ');
+        //AM will be converted to PM in the 'containsAM' function.
+        var changedLastArray = containsAM(lastArray);
+
+        //The value below will deduct 4 hours for accurate time
+        var convertedSunsetHour = subtract4Hours(parseInt(sunsetArray[0]))
+        //It'll input the value back in the Array
+        sunsetArray[0] = convertedSunsetHour;
+        //The change to PM will be added back in the Array
+        sunsetArray[2] = changedLastArray.join(' ');
+        //The Final Value
+        var sunset = sunsetArray.join(':');
 
         console.log(sunrise);
         console.log(sunset);
-        
-
   });
 };
 
-function subtract4Hours(currentHour) {
-    intHour = currentHour - 4;
-    realHour = intHour.toString();
+function subtract4Hours(storedHour) {
+    //It'll subtract the stored hour by 4, and be assigned as 'intHour' 
+    var intHour = storedHour - 4;
+    //intHour will be converted into the string and be assigned as 'realHour'
+    var realHour = intHour.toString();
 
-    console.log(realHour);
+    //It'll return the change to be assigned
     return realHour;
 }
 
+function containsAM (index) {
+    //If the Array contains AM, it'll be changed to PM
+    if (index[1] == 'AM') {
+        index[1] = 'PM';
+    };
+    //It'll return the change to be assigned
+    return index;
+};
 
 function loggingInfo(lat, long) {
     //It'll print out the following variables on the Console
@@ -79,14 +93,14 @@ function loggingInfo(lat, long) {
 function gatherLocationInput(){
     //The "locationInput" will read the input that was typed in
     var locationInput = document.getElementById('locationInput').value;
-    console.log(locationInput);
+    //console.log(locationInput);
     //Ex:
     //Output:
     //Englewood, NJ
 
     //The "inputArray" will make the one input into two separate values as an array separated by the comma.
     var inputArray = locationInput.split(',');
-    console.log(inputArray);
+    //console.log(inputArray);
     //Ex:
     //Output:
     //['Englewood'], [' NJ']
