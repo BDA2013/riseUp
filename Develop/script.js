@@ -1,5 +1,7 @@
 //Document Values
 var formButton = document.getElementById('submit');
+var riseResult = document.getElementById('timeRise');
+var setResult = document.getElementById('timeSet');
 
 
 /* Notes: Debug this later to fix the accuracy of the inputed City and State. 
@@ -59,6 +61,9 @@ function setLatLon(lat, lon) {
         sunsetArray[2] = changedLastArray.join(' ');
         //The Final Value
         var sunset = sunsetArray.join(':');
+
+        riseResult.innerHTML = sunrise;
+        setResult.innerHTML = sunset;
 
         console.log(sunrise);
         console.log(sunset);
