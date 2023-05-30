@@ -2,6 +2,7 @@
 var formButton = document.getElementById('submit');
 var riseResult = document.getElementById('timeRise');
 var setResult = document.getElementById('timeSet');
+var locationPost = document.getElementById('locationPost')
 
 
 /* Notes: Debug this later to fix the accuracy of the inputed City and State. 
@@ -62,8 +63,8 @@ function setLatLon(lat, lon) {
         //The Final Value
         var sunset = sunsetArray.join(':');
 
-        riseResult.innerHTML = sunrise;
-        setResult.innerHTML = sunset;
+        riseResult.innerHTML = "Sunrise Time: " + sunrise;
+        setResult.innerHTML = "Sunset Time: " + sunset;
 
         console.log(sunrise);
         console.log(sunset);
@@ -98,6 +99,7 @@ function loggingInfo(lat, long) {
 function gatherLocationInput(){
     //The "locationInput" will read the input that was typed in
     var locationInput = document.getElementById('locationInput').value;
+    locationPost.innerHTML = locationInput;
     //console.log(locationInput);
     //Ex:
     //Output:
