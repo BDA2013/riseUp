@@ -8,4 +8,5 @@ body {
 
 .title, #name, #lookup {
     text-align: center;
+    margin-top: 10%;
 }
