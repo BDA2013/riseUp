@@ -4,7 +4,16 @@ var riseResult = document.getElementById('timeRise');
 var setResult = document.getElementById('timeSet');
 var locationPost = document.getElementById('locationPost');
 var resultVisibility = document.getElementById('result');
+var pacificTimeZone = ["WA","OR","NV","CA"]
+var mountainTimeZone = ["MT","ID","WY","UT","CO","AZ","NM"]
+var centralTimeZone = ["ND","SD","NE","KS","OK","TX","MN","IA","MO","AR","LA","WI","IL","MS","TN","AL","KY"]
+var alaskaTimeZone = ["AK"]
+var hawaiiTimeZone = ["HI"]
 
+var states = [];
+
+states.push(pacificTimeZone, mountainTimeZone, centralTimeZone, alaskaTimeZone, hawaiiTimeZone);
+console.log(states);
 
 /* Notes: Debug this later to fix the accuracy of the inputed City and State. 
    Delete the '//' by the Console.log if you want to check out what's going on. */
@@ -18,16 +27,16 @@ function gatherLatLon(city, state) {
     })
     //Afterwards, it'll be able to use any data to be used
     .then(function (data) {
-        //console.log(data);
+        console.log(data);
         var locationLon = data.results[0].lon;
         var locationLat = data.results[0].lat;
         //the two data will be pushed into the function below 
         loggingInfo(locationLat, locationLon);
-        setLatLon(locationLat, locationLon);
+        setLatLon(locationLat, locationLon, state);
   });
 };
 
-function setLatLon(lat, lon) {
+function setLatLon(lat, lon, state) {
     //It'll contact the URL below
     fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=today`)
     //When it reaches there, it'll gather the data and convert it in JSON
@@ -42,7 +51,7 @@ function setLatLon(lat, lon) {
         var sunriseArray = data.results.sunrise.split(':');
 
         //The value below will deduct 4 hours for accurate time
-        var convertedSunriseHour = subtract4Hours(parseInt(sunriseArray[0]));
+        var convertedSunriseHour = subtractHours(parseInt(sunriseArray[0]), state);
 
         //It'll input the value back in the Array
         sunriseArray[0] = convertedSunriseHour;
@@ -57,7 +66,7 @@ function setLatLon(lat, lon) {
         var changedLastArray = containsAM(lastArray);
 
         //The value below will deduct 4 hours for accurate time
-        var convertedSunsetHour = subtract4Hours(parseInt(sunsetArray[0]))
+        var convertedSunsetHour = subtractHours(parseInt(sunsetArray[0]), state)
         //It'll input the value back in the Array
         sunsetArray[0] = convertedSunsetHour;
         //The change to PM will be added back in the Array
@@ -74,15 +83,44 @@ function setLatLon(lat, lon) {
   });
 };
 
-function subtract4Hours(storedHour) {
-    //It'll subtract the stored hour by 4, and be assigned as 'intHour' 
-    var intHour = storedHour - 4;
+function subtractHours(storedHour, state) {
+    var intHour;
+    var realHour;
+    pacificTimeZone.forEach(item){
+        if (state === pacificTimeZone[i]) {
+            //It'll subtract the stored hour by 5
+           intHour = storedHour - 7;
+        }
+    }
+
+
+    
+
+    for(var i = 0; i < states.length; i++) {
+        if (state === pacificTimeZone[i]) {
+            //It'll subtract the stored hour by 7
+           intHour = storedHour - 7;
+        } else if (state === mountainTimeZone[i]) {
+            //It'll subtract the stored hour by 6
+            intHour = storedHour - 6;
+        } else if (state === centralTimeZone[i]) {
+            //It'll subtract the stored hour by 5
+            intHour = storedHour - 5; 
+        } else {
+            //It'll subtract the stored hour by 4
+            intHour = storedHour - 4;
+            realHour = intHour;
+        }
+        console.log(realHour);
+    } 
+    realHour = intHour.toString();
     //intHour will be converted into the string and be assigned as 'realHour'
-    var realHour = intHour.toString();
+    
 
     //It'll return the change to be assigned
     return realHour;
 }
+
 
 function containsAM (index) {
     //If the Array contains AM, it'll be changed to PM
