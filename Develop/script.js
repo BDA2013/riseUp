@@ -38,6 +38,7 @@ function setLatLon(lat, lon) {
     .then(function (data) {
         //console.log(data);
         //It'll store data while being splited by ':'
+        console.log(data);
         var sunriseArray = data.results.sunrise.split(':');
 
         //The value below will deduct 4 hours for accurate time
@@ -68,8 +69,8 @@ function setLatLon(lat, lon) {
         riseResult.innerHTML = "Sunrise Time: " + sunrise;
         setResult.innerHTML = "Sunset Time: " + sunset;
 
-        console.log(sunrise);
-        console.log(sunset);
+        //console.log(sunrise);
+        //console.log(sunset);
   });
 };
 

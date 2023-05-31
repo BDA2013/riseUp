@@ -20,6 +20,22 @@ label {
     background-color: antiquewhite;
 }
 
+#locationPost {
+    text-align: center;
+}
+
+#sunrise {
+    margin-left: 320px;
+}
+
+#sunset {
+    margin-left: 150px;
+}
+
+#sunriseSunset {
+    display: flex;
+}
+
 .title, #name, #lookup {
     font-family: 'Josefin Sans', sans-serif;
     text-align: center;
