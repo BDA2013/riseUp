@@ -2,7 +2,8 @@
 var formButton = document.getElementById('submit');
 var riseResult = document.getElementById('timeRise');
 var setResult = document.getElementById('timeSet');
-var locationPost = document.getElementById('locationPost')
+var locationPost = document.getElementById('locationPost');
+var resultVisibility = document.getElementById('result');
 
 
 /* Notes: Debug this later to fix the accuracy of the inputed City and State. 
@@ -63,6 +64,7 @@ function setLatLon(lat, lon) {
         //The Final Value
         var sunset = sunsetArray.join(':');
 
+        resultVisibility.style.visibility = "visible";
         riseResult.innerHTML = "Sunrise Time: " + sunrise;
         setResult.innerHTML = "Sunset Time: " + sunset;
 
