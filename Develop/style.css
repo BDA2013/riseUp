@@ -5,3 +5,7 @@ body {
 #result {
     visibility: hidden;
 }
+
+.title, #name, #lookup {
+    text-align: center;
+}

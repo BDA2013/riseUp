@@ -12,14 +12,14 @@
 </head> 
 
 <body>
-    <header><!--Creating a header section -->
-        <h1>RiseUp App</h1>  <!--adding a title "RiseUp App" inside header -->
+    <header class="title"><!--Creating a header section -->
+        <h1 id="name">RiseUp App</h1>  <!--adding a title "RiseUp App" inside header -->
     </header>
-    <section> <!--Creating a section to hold the form and button-->
+    <section id="lookup"> <!--Creating a section to hold the form and button-->
         <div> <!--Creating a div-->
             <label for="locationInput">Enter location:</label>  <!--Creating a label next of the input box-->
             <input type="text" id="locationInput" placeholder="City, State"> <br />  <!--Creating a input box -->
-            <small id="help" class="form-text text-muted">Please Enter your City,State. Ex: Albany,NY </small> <br />  <!--Creating a small form adding instructions -->
+            <small id="help" class="form-text text-muted">Please Enter your City, State. Ex: Albany,NY </small> <br />  <!--Creating a small form adding instructions -->
             <button id="submit">Submit</button>  <!--Creating a submit button which will be added to an event listener.-->
         </div>
         </section>
