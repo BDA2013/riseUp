@@ -17,7 +17,7 @@ label {
 #submit {
     font-size: 20px;
     border-radius: 20px;
-    background-color: antiquewhite;`
+    background-color: antiquewhite;
 }
 
 .title, #name, #lookup {
@@ -28,4 +28,8 @@ label {
 
 .title{
     color: rgb(182, 45, 4);
+}
+
+img {
+    mix-blend-mode: multiply;
 }
