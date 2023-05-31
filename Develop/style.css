@@ -1,0 +1,51 @@
+body {
+    background-image: url(./Images/clouds.avif);
+}
+
+label {
+    font-size: 30px;
+}
+
+#result {
+    visibility: hidden;
+}
+
+#help {
+    font-size: 18px;
+}
+
+#submit {
+    font-size: 20px;
+    border-radius: 20px;
+    background-color: antiquewhite;
+}
+
+#locationPost {
+    text-align: center;
+}
+
+#sunrise {
+    margin-left: 320px;
+}
+
+#sunset {
+    margin-left: 150px;
+}
+
+#sunriseSunset {
+    display: flex;
+}
+
+.title, #name, #lookup {
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.title{
+    color: rgb(182, 45, 4);
+}
+
+img {
+    mix-blend-mode: multiply;
+}
