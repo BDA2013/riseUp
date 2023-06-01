@@ -101,9 +101,9 @@ function subtractHours(storedHour, state) {
     }
 
     for (var i = 0; i < mountainTimeZone.length; i++) {
-        if (state = pacificTimeZone[i]) {
+        if (state = mountainTimeZone[i]) {
             // Subtract 7 hours from the stored hour
-            intHour = storedHour - 7;
+            intHour = storedHour - 6;
             realHour = intHour;
             console.log(realHour)
 
@@ -112,9 +112,9 @@ function subtractHours(storedHour, state) {
     }
 
     for (var i = 0; i < centralTimeZone.length; i++) {
-        if (state = pacificTimeZone[i]) {
+        if (state = centralTimeZone[i]) {
             // Subtract 7 hours from the stored hour
-            intHour = storedHour - 7;
+            intHour = storedHour - 5;
             realHour = intHour;
             console.log(realHour)
 
