@@ -93,34 +93,69 @@ function setLatLon(lat, lon) {
 };
 
 function subtractHours(storedHour, state) {
-    var intHour;
-    var realHour;
+    //console.log(storedHour);
+    //console.log(state);
+    //var intHour;
+    //var realHour;
 
+    for (var p = 0; p < pacificTimeZone.length; p++) {
+        for (var m = 0; m < mountainTimeZone.length; m++) {
+            for (var c = 0; c < centralTimeZone.length; c++) {
+                for (var e = 0; e < easternTimeZone.length; e++) {
+                    switch (state) {
+                        case pacificTimeZone[p]:
+                            intHour = storedHour - 7;
+                            realHour = intHour; 
+                            break;
+                        case mountainTimeZone[m]:
+                            intHour = storedHour - 7;
+                            realHour = intHour; 
+                            break;
+                        case centralTimeZone[c]:
+                            intHour = storedHour - 5;
+                            realHour = intHour; 
+                            break;
+                        case easternTimeZone[e]:
+                            intHour = storedHour - 4;
+                            realHour = intHour; 
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (realHour <= 0) {
+        realHour += 12;
+        return realHour; // Return the subtracted hour
+        } else {
+        return realHour; // Return the subtracted hour
+    };
+}
+/*
     for (var p = 0; p < pacificTimeZone.length; p++) {
             for (var m = 0; m < mountainTimeZone.length; m++) {
                 for (var c = 0; c < centralTimeZone.length; c++) {
-                    for (var e = 0; e < easternTimeZone; e++) {
-                        if (state == pacificTimeZone[p]) {
+                        if (state === pacificTimeZone[p]) {
                         // Subtract 7 hours from the stored hour
                         intHour = storedHour - 7;
                         realHour = intHour;
                         console.log(realHour);
-                    } else if (state == mountainTimeZone[m]) {
+                    } else if (state === mountainTimeZone[m]) {
                         // Subtract 6 hours from the stored hour
                         intHour = storedHour - 6;
                         realHour = intHour;
                         console.log(realHour);
-                    } else if (state == centralTimeZone[c]) {
+                    } else if (state === centralTimeZone[c]) {
                         // Subtract 5 hours from the stored hour
                         intHour = storedHour - 5;
                         realHour = intHour;
                         console.log(realHour);
-                    } else if (state == easternTimeZone[e]) {
+                    } else {
                         intHour = storedHour - 4;
                         realHour = intHour;
                         console.log(realHour);
                     }
-                }
             }
         }
     }
@@ -131,8 +166,8 @@ function subtractHours(storedHour, state) {
     } else {
         return realHour; // Return the subtracted hour
     } 
+}
 
-/*
     for (var i = 0; i < pacificTimeZone.length; i++) {
         if (state = pacificTimeZone[i]) {
             // Subtract 7 hours from the stored hour
@@ -164,9 +199,6 @@ function subtractHours(storedHour, state) {
         }
     }
 */
-    
-    
-}
 
 
 
