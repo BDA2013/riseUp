@@ -4,19 +4,16 @@ var riseResult = document.getElementById('timeRise');
 var setResult = document.getElementById('timeSet');
 var locationPost = document.getElementById('locationPost');
 var resultVisibility = document.getElementById('result');
-var pacificTimeZone = ["WA", "OR", "NV", "CA"]
-var mountainTimeZone = ["MT", "ID", "WY", "UT", "CO", "AZ", "NM"]
-var centralTimeZone = ["ND", "SD", "NE", "KS", "OK", "TX", "MN", "IA", "MO", "AR", "LA", "WI", "IL", "MS", "TN", "AL", "KY"]
-var alaskaTimeZone = ["AK"]
-var hawaiiTimeZone = ["HI"]
-
-var states = [];
-
-states.push(pacificTimeZone, mountainTimeZone, centralTimeZone, alaskaTimeZone, hawaiiTimeZone);
-console.log(states);
+var pacificTimeZone = ["WA", "OR", "NV", "CA"];
+var mountainTimeZone = ["MT", "ID", "WY", "UT", "CO", "AZ", "NM"];
+var centralTimeZone = ["ND", "SD", "NE", "KS", "OK", "TX", "MN", "IA", "MO", "AR", "LA", "WI", "IL", "MS", "TN", "AL", "KY"];
+var easternTimeZone = ["MI", "IN", "OH", "PA", "WV", "VA", "DC", "MD", "DE", "NJ", "NY", "CT", "RI", "MA", "NH", "VT", "ME", "NC", "SC", "GA", "FL"];
+var alaskaTimeZone = ["AK"];
+var hawaiiTimeZone = ["HI"];
 
 /* Notes: Debug this later to fix the accuracy of the inputed City and State. 
    Delete the '//' by the Console.log if you want to check out what's going on. */
+var savedState;
 
 function gatherLatLon(city, state) {
     //It'll contact the URL below
@@ -32,11 +29,11 @@ function gatherLatLon(city, state) {
             var locationLat = data.results[0].lat;
             //the two data will be pushed into the function below 
             loggingInfo(locationLat, locationLon);
-            setLatLon(locationLat, locationLon, state);
+            setLatLon(locationLat, locationLon);
         });
 };
 
-function setLatLon(lat, lon, state) {
+function setLatLon(lat, lon) {
     //It'll contact the URL below
     fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=today`)
         //When it reaches there, it'll gather the data and convert it in JSON
@@ -50,23 +47,35 @@ function setLatLon(lat, lon, state) {
             console.log(data);
             var sunriseArray = data.results.sunrise.split(':');
 
+            //Below will split the last array of sunsetArray
+            var sunriseLastArray = sunriseArray[2].split(' ');
+
+            if(sunriseLastArray[1] == 'PM') {
+                sunriseLastArray[1] = 'AM';
+                sunriseArray[2] = sunriseLastArray.join(' ');
+            }
+
+
             //The value below will deduct 4 hours for accurate time
-            var convertedSunriseHour = subtractHours(parseInt(sunriseArray[0]), state);
+            var convertedSunriseHour = subtractHours(parseInt(sunriseArray[0]), savedState);
 
             //It'll input the value back in the Array
             sunriseArray[0] = convertedSunriseHour;
+
             //The Final Value
             var sunrise = sunriseArray.join(':');
+            
+            
 
             //It'll store data while being splited by ':'
             var sunsetArray = data.results.sunset.split(':');
             //Below will split the last array of sunsetArray
-            var lastArray = sunsetArray[2].split(' ');
+            var sunsetLastArray = sunsetArray[2].split(' ');
             //AM will be converted to PM in the 'containsAM' function.
-            var changedLastArray = containsAM(lastArray);
+            var changedLastArray = containsAM(sunsetLastArray);
 
             //The value below will deduct 4 hours for accurate time
-            var convertedSunsetHour = subtractHours(parseInt(sunsetArray[0]), state)
+            var convertedSunsetHour = subtractHours(parseInt(sunsetArray[0]), savedState)
             //It'll input the value back in the Array
             sunsetArray[0] = convertedSunsetHour;
             //The change to PM will be added back in the Array
@@ -87,42 +96,76 @@ function subtractHours(storedHour, state) {
     var intHour;
     var realHour;
 
+    for (var p = 0; p < pacificTimeZone.length; p++) {
+            for (var m = 0; m < mountainTimeZone.length; m++) {
+                for (var c = 0; c < centralTimeZone.length; c++) {
+                    for (var e = 0; e < easternTimeZone; e++) {
+                        if (state == pacificTimeZone[p]) {
+                        // Subtract 7 hours from the stored hour
+                        intHour = storedHour - 7;
+                        realHour = intHour;
+                        console.log(realHour);
+                    } else if (state == mountainTimeZone[m]) {
+                        // Subtract 6 hours from the stored hour
+                        intHour = storedHour - 6;
+                        realHour = intHour;
+                        console.log(realHour);
+                    } else if (state == centralTimeZone[c]) {
+                        // Subtract 5 hours from the stored hour
+                        intHour = storedHour - 5;
+                        realHour = intHour;
+                        console.log(realHour);
+                    } else if (state == easternTimeZone[e]) {
+                        intHour = storedHour - 4;
+                        realHour = intHour;
+                        console.log(realHour);
+                    }
+                }
+            }
+        }
+    }
 
+    if (realHour <= 0) {
+        realHour = 12 + realHour;
+        return realHour; // Return the subtracted hour
+    } else {
+        return realHour; // Return the subtracted hour
+    } 
 
+/*
     for (var i = 0; i < pacificTimeZone.length; i++) {
         if (state = pacificTimeZone[i]) {
             // Subtract 7 hours from the stored hour
             intHour = storedHour - 7;
             realHour = intHour;
-            console.log(realHour)
-
-
+            console.log(realHour);
+        } else {
+            for (var i = 0; i < mountainTimeZone.length; i++) {
+                if (state = mountainTimeZone[i]) {
+                    // Subtract 6 hours from the stored hour
+                    intHour = storedHour - 6;
+                    realHour = intHour;
+                    console.log(realHour);
+                } else {
+                    for (var i = 0; i < centralTimeZone.length; i++) {
+                        if (state = centralTimeZone[i]) {
+                            // Subtract 5 hours from the stored hour
+                            intHour = storedHour - 5;
+                            realHour = intHour;
+                            console.log(realHour);
+                        } else {
+                            intHour = storedHour - 4;
+                            realHour = intHour;
+                            console.log(realHour);
+                        }
+                    }
+                }
+            }
         }
     }
-
-    for (var i = 0; i < mountainTimeZone.length; i++) {
-        if (state = mountainTimeZone[i]) {
-            // Subtract 7 hours from the stored hour
-            intHour = storedHour - 6;
-            realHour = intHour;
-            console.log(realHour)
-
-
-        }
-    }
-
-    for (var i = 0; i < centralTimeZone.length; i++) {
-        if (state = centralTimeZone[i]) {
-            // Subtract 7 hours from the stored hour
-            intHour = storedHour - 5;
-            realHour = intHour;
-            console.log(realHour)
-
-
-        }
-    }
-
-    return realHour; // Return the subtracted hour
+*/
+    
+    
 }
 
 
@@ -191,6 +234,7 @@ function gatherLocationInput() {
 
     //Replaced the inputArray[1] with the trimed file
     inputArray[1] = fixedStateArray;
+    savedState = fixedStateArray;
     console.log(inputArray)
     //['Englewood'] ['NJ']
 
