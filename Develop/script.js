@@ -1,5 +1,6 @@
 //Document Values
 var formButton = document.getElementById('submit');
+var locationInput = document.getElementById('locationInput');
 var riseResult = document.getElementById('timeRise');
 var setResult = document.getElementById('timeSet');
 var locationPost = document.getElementById('locationPost');
