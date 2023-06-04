@@ -184,12 +184,23 @@ function gatherLocationInput() {
 //It'll listen for the click on the Submit button
 formButton.addEventListener("click", function () {
     //Once the event occured it'll intiate the function(s) below
-    gatherLocationInput()
+    if (resultVisibility.style.visibility == "visible") {
+        resultVisibility.style.visibility = "hidden";
+        gatherLocationInput();
+    } else {
+        gatherLocationInput();
+    }
+    
 });
 
 //It'll listen for the Enter key as an alternative
 locationInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
-        gatherLocationInput();
+        if (resultVisibility.style.visibility == "visible") {
+            resultVisibility.style.visibility = "hidden";
+            gatherLocationInput();
+        } else {
+            gatherLocationInput();
+        }
     }
 });
