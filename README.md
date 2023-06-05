@@ -1,6 +1,6 @@
 # riseUp
 
-Our RiseUp App will allow user to enter a location and display the sunset, sunrise, and day length.
+Our RiseUp App will allow user to enter a location and display the Sunrise, and Sunset based on the current day.
 
 <img width="1440" alt="Screenshot 2023-06-05 at 12 25 11 PM" src="https://github.com/BDA2013/riseUp/assets/129307670/c9d64cd7-17e9-470b-8630-ec8acb13092f">
 
